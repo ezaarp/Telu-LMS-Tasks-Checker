@@ -60,7 +60,7 @@ Build folder output akan dibuat di [dist](C:/Users/andra/Downloads/codex_project
 
 Repo publish target:
 
-- [ezaarp/Telu-LMS-Tasks-Checker-](https://github.com/ezaarp/Telu-LMS-Tasks-Checker-)
+- [ezaarp/Telu-LMS-Deadline-Widget](https://github.com/ezaarp/Telu-LMS-Deadline-Widget)
 
 Sebelum publish, set `GH_TOKEN` ke Personal Access Token GitHub yang punya izin membuat release.
 

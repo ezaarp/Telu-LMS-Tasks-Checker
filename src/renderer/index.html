@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TelU LMS Widget</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <img src="./assets/logo-telu.png" alt="" class="brand-logo" />
+          </div>
+          <div class="brand-copy">
+            <p class="brand-kicker">Telkom University</p>
+            <h1>LMS Tasks Manager</h1>
+          </div>
+        </div>
+
+        <div class="window-actions" data-no-drag="true">
+          <button id="refreshButton" class="ghost-button compact-only" title="Refresh">Refresh</button>
+          <button id="settingsButton" class="icon-button" title="Settings" aria-label="Settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-svg">
+              <path
+                d="M10.9 2.4a1 1 0 0 1 2.2 0l.4 1.7a8.3 8.3 0 0 1 1.9.8l1.5-1a1 1 0 0 1 1.3.2l1.5 1.5a1 1 0 0 1 .2 1.3l-1 1.5c.3.6.6 1.2.8 1.9l1.7.4a1 1 0 0 1 0 2.2l-1.7.4a8.3 8.3 0 0 1-.8 1.9l1 1.5a1 1 0 0 1-.2 1.3l-1.5 1.5a1 1 0 0 1-1.3.2l-1.5-1c-.6.3-1.2.6-1.9.8l-.4 1.7a1 1 0 0 1-2.2 0l-.4-1.7a8.3 8.3 0 0 1-1.9-.8l-1.5 1a1 1 0 0 1-1.3-.2l-1.5-1.5a1 1 0 0 1-.2-1.3l1-1.5a8.3 8.3 0 0 1-.8-1.9l-1.7-.4a1 1 0 0 1 0-2.2l1.7-.4c.2-.7.5-1.3.8-1.9l-1-1.5a1 1 0 0 1 .2-1.3L5.3 4a1 1 0 0 1 1.3-.2l1.5 1c.6-.3 1.2-.6 1.9-.8l.4-1.7ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+          <button id="minimizeButton" class="icon-button" title="Minimize">_</button>
+          <button id="closeButton" class="icon-button" title="Close">X</button>
+        </div>
+      </header>
+
+      <section id="setupView" class="setup-view hidden">
+        <section class="hero-card">
+          <p class="section-kicker">Setup awal</p>
+          <h2>Masukkan URL kalender Anda lalu autentikasi sekali.</h2>
+          <p class="hero-copy">
+            Setelah sinkron pertama berhasil, widget ini akan berubah menjadi tampilan ringkas yang hanya berisi task dan tombol refresh.
+          </p>
+        </section>
+
+        <section class="panel">
+          <label class="field">
+            <span>Calendar export URL</span>
+            <textarea id="calendarUrl" rows="4" placeholder="Paste URL export kalender LMS di sini"></textarea>
+          </label>
+
+          <div class="row">
+            <label class="field">
+              <span>Refresh otomatis (menit)</span>
+              <input id="refreshMinutes" type="number" min="1" max="240" />
+            </label>
+
+            <label class="field">
+              <span>Jumlah task</span>
+              <input id="maxItems" type="number" min="1" max="50" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="saveButton" class="primary-button">Simpan & autentikasi</button>
+            <button id="authButton" class="ghost-button">Buka autentikasi</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="taskView" class="task-view hidden">
+        <section id="settingsPanel" class="panel settings-panel hidden">
+          <div class="settings-header">
+            <div>
+              <p class="section-kicker">Settings</p>
+              <h2>Update LMS calendar link</h2>
+            </div>
+            <button id="closeSettingsButton" class="ghost-button compact-only" type="button">Close</button>
+          </div>
+
+          <label class="field">
+            <span>Calendar export URL</span>
+            <textarea id="settingsCalendarUrl" rows="3" placeholder="Paste URL export kalender LMS di sini"></textarea>
+          </label>
+
+          <div class="row">
+            <label class="field">
+              <span>Refresh otomatis (menit)</span>
+              <input id="settingsRefreshMinutes" type="number" min="1" max="240" />
+            </label>
+
+            <label class="field">
+              <span>Jumlah task</span>
+              <input id="settingsMaxItems" type="number" min="1" max="50" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="saveSettingsButton" class="primary-button" type="button">Save changes</button>
+            <button id="settingsAuthButton" class="ghost-button" type="button">Re-authenticate</button>
+          </div>
+        </section>
+
+        <section class="status-strip">
+          <div>
+            <p id="statusText">Memuat task...</p>
+          </div>
+          <div class="time-box">
+            <span class="time-label">Now</span>
+            <strong id="currentTime">--:--:--</strong>
+          </div>
+        </section>
+
+        <section id="errorState" class="panel hidden">
+          <p class="section-kicker">Perlu autentikasi</p>
+          <h2>Sesi LMS belum aktif.</h2>
+          <p class="hero-copy">Buka autentikasi, login sekali, lalu widget akan menyinkronkan data otomatis.</p>
+          <div class="actions">
+            <button id="reauthButton" class="primary-button">Buka autentikasi</button>
+          </div>
+        </section>
+
+        <section id="emptyState" class="panel empty-state hidden">
+          <p>Tidak ada task mendatang yang ditemukan.</p>
+        </section>
+
+        <section id="assignments" class="assignments"></section>
+      </section>
+    </main>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

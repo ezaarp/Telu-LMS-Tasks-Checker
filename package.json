@@ -1,0 +1,13 @@
+{
+  "name": "telu-lms-widget",
+  "version": "0.1.0",
+  "description": "Desktop widget for Telkom University LMS calendar deadlines.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "start-widget.cmd",
+    "install:win": "install-deps.cmd"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0"
+  }
+}

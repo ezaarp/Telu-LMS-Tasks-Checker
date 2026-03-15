@@ -8,9 +8,9 @@
   "scripts": {
     "start": "start-widget.cmd",
     "install:win": "install-deps.cmd",
-    "pack": "cmd /c \"set PATH=%SystemRoot%\\System32;%PATH%&& electron-builder --dir\"",
-    "dist": "cmd /c \"set PATH=%SystemRoot%\\System32;%PATH%&& electron-builder --win nsis portable\"",
-    "release": "cmd /c \"set PATH=%SystemRoot%\\System32;%PATH%&& electron-builder --win nsis portable --publish always\""
+    "pack": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -File build\\build-win.ps1",
+    "dist": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -File build\\build-win.ps1",
+    "release": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$env:PATH='C:\\Program Files\\nodejs;' + $env:SystemRoot + '\\System32;' + $env:PATH; .\\node_modules\\.bin\\electron-builder.cmd --prepackaged dist\\win-unpacked --win nsis portable --publish always\""
   },
   "build": {
     "appId": "com.ezaarp.telulmstaskschecker",
@@ -30,7 +30,7 @@
       {
         "provider": "github",
         "owner": "ezaarp",
-        "repo": "Telu-LMS-Deadline-Widget"
+        "repo": "Telu-LMS-Tasks-Checker"
       }
     ],
     "win": {
@@ -48,6 +48,7 @@
           ]
         }
       ],
+      "executableName": "TelU LMS Tasks Checker",
       "icon": "build/icon.ico",
       "signAndEditExecutable": false,
       "artifactName": "${productName}-${version}-${arch}.${ext}"
